@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''Contains utilities for the TadoLogger package
-'''
+'''Contains utilities for the TadoLogger package.'''
 
 import datetime as dt
 import logging
