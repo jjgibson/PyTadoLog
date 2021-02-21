@@ -15,7 +15,7 @@ setup(name='pytadolog',
       keywords=['tado', 'python', 'logging'],
       author='Josh Gibson',
       author_email='josh-gibson@outlook.com',
-      url='https://github.com/lpforthewin/TadoLogger',
+      url='https://github.com/jjgibson/PyTadoLog',
       python_requires='>=3.6',
       install_requires=[
         'keyring',
