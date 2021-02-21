@@ -95,12 +95,31 @@ except KeyboardInterrupt:
 By default the CSVs will be stored in home/Documents/TadoLogs
 
 The CSV will be structured like this:
-Zone               |Weather          |Weather       |Weather     |Livingroom|Livingroom|Livingroom   |Livingroom       |Livingroom |Hall     |Hall    |Hall         |Hall             |Hall       
--------------------|-----------------|--------------|------------|----------|----------|-------------|-----------------|-----------|---------|--------|-------------|-----------------|-----------
-Variable           |Outside Temp (°C)|Solar Int. (%)|Weather     |Temp (°C) |R.H. (%)  |Set Temp (°C)|Heating Power (%)|Open Window|Temp (°C)|R.H. (%)|Set Temp (°C)|Heating Power (%)|Open Window
-2021-02-20 19:03:30|13.33            |0.0           |NIGHT_CLOUDY|23.88     |45.0      |20.0         |0.0              |FALSE      |18.56    |58.4    |13.0         |0.0              |FALSE      
-2021-02-20 19:04:00|13.33            |0.0           |NIGHT_CLOUDY|23.88     |45.0      |20.0         |0.0              |FALSE      |18.56    |58.4    |13.0         |0.0              |FALSE      |
-2021-02-20 19:04:30|13.33            |0.0           |NIGHT_CLOUDY|23.88     |45.0      |20.0         |0.0              |FALSE      |18.56    |58.4    |13.0         |0.0              |FALSE      
+
++-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+| Zone  | We    | We    | We    | Livin | Livin | Livin | Livin | Livin | Hall  | Hall  | Hall  | Hall  | Hall  |
+|       | ather | ather | ather | groom | groom | groom | groom | groom |       |       |       |       |       |
++=======+=======+=======+=======+=======+=======+=======+=======+=======+=======+=======+=======+=======+=======+
+| Var   | Ou    | Solar | We    | Temp  | R.H.  | Set   | He    | Open  | Temp  | R.H.  | Set   | He    | Open  |
+| iable | tside | Int.  | ather | (°C)  | (%)   | Temp  | ating | W     | (°C)  | (%)   | Temp  | ating | W     |
+|       | Temp  | (%)   |       |       |       | (°C)  | Power | indow |       |       | (°C)  | Power | indow |
+|       | (°C)  |       |       |       |       |       | (%)   |       |       |       |       | (%)   |       |
++-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+| 2021- | 13.33 | 0.0   | NI    | 23.88 | 45.0  | 20.0  | 0.0   | FALSE | 18.56 | 58.4  | 13.0  | 0.0   | FALSE |
+| 02-20 |       |       | GHT_C |       |       |       |       |       |       |       |       |       |       |
+| 19:   |       |       | LOUDY |       |       |       |       |       |       |       |       |       |       |
+| 03:30 |       |       |       |       |       |       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+| 2021- | 13.33 | 0.0   | NI    | 23.88 | 45.0  | 20.0  | 0.0   | FALSE | 18.56 | 58.4  | 13.0  | 0.0   | FALSE |
+| 02-20 |       |       | GHT_C |       |       |       |       |       |       |       |       |       |       |
+| 19:   |       |       | LOUDY |       |       |       |       |       |       |       |       |       |       |
+| 04:00 |       |       |       |       |       |       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+| 2021- | 13.33 | 0.0   | NI    | 23.88 | 45.0  | 20.0  | 0.0   | FALSE | 18.56 | 58.4  | 13.0  | 0.0   | FALSE |
+| 02-20 |       |       | GHT_C |       |       |       |       |       |       |       |       |       |       |
+| 19:   |       |       | LOUDY |       |       |       |       |       |       |       |       |       |       |
+| 04:30 |       |       |       |       |       |       |       |       |       |       |       |       |       |
++-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 
 ``pytadolog`` will also generate a logfile to track progress. This is stored in a logs/ subdirectory in the output directory, i.e. home/Documents/TadoLogs/logs by default.
 
@@ -120,5 +139,5 @@ From the ``keyring`` README:
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## License
+## Licence
 [MIT](https://choosealicense.com/licenses/mit/)
