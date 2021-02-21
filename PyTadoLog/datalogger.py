@@ -270,7 +270,7 @@ class TadoLogger:
             self.pdstore.start()
         self.scheduler.run()
 
-    def cleanup(self):
+    def close(self):
         '''Clean up any scheduled events.'''
         if self.scheduler is not None:
             if not self.scheduler.empty():
@@ -290,4 +290,4 @@ if __name__ == '__main__':
         tl.start()
     except KeyboardInterrupt:
         print('\nInterrupted: Cancelling next event.')
-        tl.cleanup()
+        tl.close()
