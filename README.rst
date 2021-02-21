@@ -1,7 +1,7 @@
 pytadolog: CSV logging for PyTado
 =================================
 
-``pyadolog`` is a Python module which extends the `python-tado`_
+``pytadolog`` is a Python module which extends the `python-tado`_
 package so that data can be logged from the Tado web API to a local CSV
 file.
 
