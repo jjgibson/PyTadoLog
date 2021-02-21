@@ -17,7 +17,7 @@ def main():
                         )
     parser.add_argument('--last-day', help='Last day of week as 3 letter string')
     parser.add_argument('-m', '--multiprocessing', action='store_true',
-                        help='Use separate processed for web query and csv saving')
+                        help='Use separate processes for web query and csv saving')
     args = parser.parse_args()
     with TadoLogger(args.outdir,
                     args.update_period,
