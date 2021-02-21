@@ -91,6 +91,19 @@ class TadoLogger:
                 self.lastday,
                 self._logqueue,
                 )
+    
+    def __enter__(self):
+        _LOGGER.debug('PyTadoLog context manager entered')
+        return self
+    
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        _LOGGER.debug('PyTadoLog context manager exiting')
+        if exc_type is not None:
+            _LOGGER.exception(
+                'Error encountered during operation',
+                exc_info=(exc_type, exc_value, exc_traceback),
+                )
+        self.close()
 
     def login(self):
         '''Log in to TaDo mobile server.
@@ -285,9 +298,8 @@ class TadoLogger:
 
 
 if __name__ == '__main__':
-    tl = TadoLogger()
-    try:
+    import datetime as dt
+    
+    with TadoLogger() as tl:
         tl.start()
-    except KeyboardInterrupt:
-        print('\nInterrupted: Cancelling next event.')
-        tl.close()
+    print(f'Logging ended at {dt.datetime.now()}')
