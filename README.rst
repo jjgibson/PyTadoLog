@@ -1,7 +1,7 @@
 pytadolog: CSV logging for PyTado
 =================================
 
-``pyadolog`` is a Python module which extends the ```python-tado```_
+``pyadolog`` is a Python module which extends the `python-tado`_
 package so that data can be logged from the Tado web API to a local CSV
 file.
 
@@ -67,7 +67,7 @@ CSV conversion
 ~~~~~~~~~~~~~~
 
 This package includes a handy script to convert created CSV files to
-Excel files. Conversion requires ```openpyxl```_ to be installed. The
+Excel files. Conversion requires `openpyxl`_ to be installed. The
 script can be invoked from the commandline using:
 
 .. code:: bash
@@ -168,7 +168,7 @@ home/Documents/TadoLogs/logs by default.
 Tado credentials
 ----------------
 
-``pytadolog`` uses ```keyring```_ to store the Tado log in credentials
+``pytadolog`` uses `keyring`_ to store the Tado log in credentials
 securely using the operating system's default keyring service.
 
 From the ``keyring`` README:
