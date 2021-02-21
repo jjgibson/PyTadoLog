@@ -22,14 +22,13 @@ from .utils import nexttick, loglistener, setuplogger, setupoutdir
 
 
 _LOGGER = logging.getLogger(__name__)
-_LOGLEVEL = logging.DEBUG
 
 
 class TadoLogger:
     '''Periodically requests TaDo data and passes to dataframe.'''
     CREDPATH = pathlib.Path.home() / '.tado_credentials'
 
-    def __init__(self, outdir=None, update_period=30, last_day='sun', multiproc=True):
+    def __init__(self, outdir=None, update_period=30, last_day='sun', multiproc=True, loglevel=logging.WARNING):
         '''Constructs TaDo logger to update at update_periods.
 
         Args:
@@ -41,10 +40,13 @@ class TadoLogger:
                 last day of week stored in csv files. Defaults to 'sun'.
             multiproc (bool, optional): Run datastore in another process. 
                 Defaults to True.
+            loglevel (logging level, optional): Level to log at. Defaults to
+                logging.WARNING.
         '''
         self.update_period = update_period
         self.lastday = last_day
         self._multiproc = multiproc
+        self._loglevel = loglevel
         self._outdir = setupoutdir(outdir)
         self.event = None  # Will hold next update event
         self.scheduler = sched.scheduler(time.time, time.sleep)
@@ -52,10 +54,10 @@ class TadoLogger:
         self._stopev = multiprocessing.Event()
         self._loglistener = multiprocessing.Process(
             target=loglistener,
-            args=(self._outdir, self._logqueue, self._stopev, _LOGLEVEL),
+            args=(self._outdir, self._logqueue, self._stopev, self._loglevel),
             )
         self._loglistener.start()
-        setuplogger(_LOGGER, self._logqueue, _LOGLEVEL)
+        setuplogger(_LOGGER, self._logqueue, self._loglevel)
         _LOGGER.info('---STARTED TADOLOGGER---')
         self.variables = {
             'Weather': ('Outside Temp (°C)', 'Solar Int. (%)', 'Weather'),
@@ -79,6 +81,7 @@ class TadoLogger:
                 self.update_period,
                 self.lastday,
                 self._logqueue,
+                self._loglevel,
                 self._q,
                 self._stopev,
                 )
@@ -90,6 +93,7 @@ class TadoLogger:
                 self.update_period,
                 self.lastday,
                 self._logqueue,
+                self._loglevel,
                 )
     
     def __enter__(self):

@@ -16,7 +16,6 @@ from .utils import getnextday, nexttick, setuplogger
 
 
 _LOGGER = logging.getLogger(__name__)
-_LOGLEVEL = logging.DEBUG
 
 
 class DataStore:
@@ -26,7 +25,7 @@ class DataStore:
     '''
     DATEPATTERN = re.compile(r'\d{4}-\d{2}-\d{2}')
 
-    def __init__(self, variables, zones, outdir, delta, lastday, logqueue):
+    def __init__(self, variables, zones, outdir, delta, lastday, logqueue, loglevel=logging.WARNING):
         '''Initialise datastore. Sets up columns based on vars and zones
 
         Args:
@@ -37,6 +36,8 @@ class DataStore:
             last_day (str, optional): Three letter weekday string indicating 
                 last day of week stored in csv files. Defaults to 'sun'.
             logqueue(multiprocessing.queue): Queue to hold logging.logger logs.
+            loglevel (logging level, optional): Level to log at. Defaults to
+                logging.WARNING.
         '''
         self.variables = variables
         self.zones = zones
@@ -46,7 +47,7 @@ class DataStore:
         self.csvpath = None  # Will hold path to current csv file
         self.lastindex = None  # Will hold last index in dataframe
         self.df = None  # Will hold dataframe
-        setuplogger(_LOGGER, logqueue, _LOGLEVEL)
+        setuplogger(_LOGGER, logqueue, loglevel)
 
         _LOGGER.debug('Creating output directory at %s', self.outdir)
         self.outdir.mkdir(exist_ok=True)
@@ -204,6 +205,7 @@ class MPDataStore(multiprocessing.Process, DataStore):
             delta,
             lastday,
             logqueue,
+            loglevel=logging.WARNING,
             q = None,
             stopev = None,
             ):
@@ -217,6 +219,8 @@ class MPDataStore(multiprocessing.Process, DataStore):
             last_day (str, optional): Three letter weekday string indicating
                 last day of week stored in csv files. Defaults to 'sun'.
             logqueue(Queue): Queue to hold logging.logger logs.
+            loglevel (logging level, optional): Level to log at. Defaults to
+                logging.WARNING.
             q (JoinableQueue, optional): Queue which will hold data. Defaults
                 to None.
             stopev (multiprocessing.Event, optional): Event which will signal 
@@ -229,13 +233,14 @@ class MPDataStore(multiprocessing.Process, DataStore):
         self._delta = delta
         self._lastday = lastday
         self._logqueue = logqueue
+        self._loglevel = loglevel
         self._q = q
         self._stopev = stopev
         
     def run(self):
         '''Wait for data in queue and update datastore when available.
         '''
-        DataStore.__init__(self, self._variables, self._zones, self._outdir, self._delta, self._lastday, self._logqueue)
+        DataStore.__init__(self, self._variables, self._zones, self._outdir, self._delta, self._lastday, self._logqueue, self._loglevel)
         while not self._stopev.is_set():
             self.update(*self._q.get())
             self._q.task_done()
