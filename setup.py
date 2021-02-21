@@ -5,14 +5,14 @@ import pathlib
 from setuptools import setup, find_packages
 
 
-with open(pathlib.Path(__file__).parent / 'README.md', 'r', encoding='utf-8') as fh:
+with open(pathlib.Path(__file__).parent / 'README.rst', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(name='pytadolog',
       version='0.1.1',
       description='CSV logger for PyTado from Josh Gibson',
       long_description=long_description,
-      long_description_content_type='text/markdown',
+      long_description_content_type='text/x-rst',
       keywords=['tado', 'python', 'logging'],
       author='Josh Gibson',
       author_email='josh-gibson@outlook.com',
