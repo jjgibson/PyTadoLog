@@ -195,15 +195,15 @@ Licence
 
 `MIT`_
 
-.. _``python-tado``: https://github.com/chrism0dwk/PyTado
+.. _python-tado: https://github.com/chrism0dwk/PyTado
 .. _python-tadoac: https://pypi.org/project/python-tadoac/
 .. _python-tado: https://pypi.org/project/python-tado/
 .. _pytado: https://pypi.org/project/pytado/
 .. _commit 00a9ab1: https://github.com/chrism0dwk/PyTado/tree/00a9ab12569e84a5537c2a0517c3a6b5cbb9d535
 .. _pip: https://pip.pypa.io/en/stable/
-.. _``openpyxl``: https://pypi.org/project/openpyxl/
+.. _openpyxl: https://pypi.org/project/openpyxl/
 .. _MultiIndex: https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html
-.. _``keyring``: https://pypi.org/project/keyring/
+.. _keyring: https://pypi.org/project/keyring/
 .. _Keychain: https://en.wikipedia.org/wiki/Keychain_%28software%29
 .. _Secret Service: http://standards.freedesktop.org/secret-service/
 .. _secretstorage: https://pypi.python.org/pypi/secretstorage>
