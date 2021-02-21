@@ -3,16 +3,19 @@
 ``pyadolog`` is a Python module which extends the [``python-tado``](https://github.com/chrism0dwk/PyTado) package so that data can be logged from the Tado web API to a local CSV file.
 
 ## Installation
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install ``pytadolog``.
+### Note about PyTado
+This package requires python-tado to query the TADO web API, however development of the main package appears to have stalled. There are a number of forks available on PyPI with different APIs and varying aliases ([python-tadoac](https://pypi.org/project/python-tadoac/), [python-tado](https://pypi.org/project/python-tado/), [pytado](https://pypi.org/project/pytado/)). This package was developed with ``python-tado`` v0.2.9 cloned directly from GitHub, it has been tested to be compatible with [commit 00a9ab1](https://github.com/chrism0dwk/PyTado/tree/00a9ab12569e84a5537c2a0517c3a6b5cbb9d535).
+
+Therefore, before installing pytadolog you must first install the correct version of pytado. This can be achieved using the package manager [pip](https://pip.pypa.io/en/stable/) as below:
+```bash
+pip install git+https://git@github.com/chrism0dwk/PyTado.git@00a9ab12569e84a5537c2a0517c3a6b5cbb9d535
+```
+
+pip can then be used to install ``pytadolog``.
 
 ```bash
 pip install pytadolog
 ```
-
-### Note about PyTado
-This package requires python-tado to query the TADO web API, however development of the main package appears to have stalled. There are a number of forks available on PyPI with different APIs and varying aliases ([python-tadoac](https://pypi.org/project/python-tadoac/), [python-tado](https://pypi.org/project/python-tado/), [pytado](https://pypi.org/project/pytado/)). This package was developed with ``python-tado`` v0.2.9 cloned directly from GitHub, it has been tested to be compatible with [commit 00a9ab1](https://github.com/chrism0dwk/PyTado/tree/00a9ab12569e84a5537c2a0517c3a6b5cbb9d535).
-
-
 ## Usage
 ``pytadolog`` includes a helpful console script and can easily be invoked with:
 
