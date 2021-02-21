@@ -38,8 +38,7 @@ optional arguments:
   --update-period UPDATE_PERIOD
                         time in seconds between updates
   --last-day LAST_DAY   last day of week as 3 letter string
-  -m, --multiprocessing
-                        use separate processes for web query and csv saving
+  --disable-multiproc   use single process for web query and csv saving
   -d, --debug           log debugging statements to file
   -v, --verbose         log info statements to file
 ```

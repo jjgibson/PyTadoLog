@@ -21,8 +21,9 @@ def main():
                         help='last day of week as 3 letter string',
                         default='sun',
                         )
-    parser.add_argument('-m', '--multiprocessing', action='store_true',
-                        help='use separate processes for web query and csv saving',
+    parser.add_argument('--disable-multiproc', action='store_false',
+                        help="use single process for web query and csv saving",
+                        dest='multiprocessing',
                         )
     parser.add_argument('-d', '--debug',
                         help='log debugging statements to file',
