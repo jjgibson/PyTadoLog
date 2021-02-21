@@ -12,6 +12,22 @@ import pathlib
 import pandas as pd
 
 
+def setupoutdir(outdir=None):
+    '''Create directory structure for csvs and logs.
+
+    Args:
+        outdir (path like, optional): Path to top level directory. Defaults to None.
+    
+    If outdir is None <home>/Documents/TadoLogs/ is used.
+    '''
+    if outdir is None:
+        outdir = pathlib.Path.home() / 'Documents' / 'TadLogs'
+    else:
+        outdir = pathlib.Path(outdir)
+    outdir.mkdir(exist_ok=True)
+    return outdir
+
+
 def setuplogger(logger, queue, level=logging.WARNING):
     '''Sets up the TadoLogger logging object.
 
@@ -85,17 +101,22 @@ def csv2excel(inpath, outpath=None, dropna=True):
         df.to_excel(outpath, freeze_panes=(2, 1))
 
 
-def loglistener(queue, stopev, loglevel=logging.INFO):
+def loglistener(outdir, queue, stopev, loglevel=logging.INFO):
     '''Collate logs from multiple processes.
 
     Args:
+        outdir (path like): Top level directory in which to store log files.
         queue (Queue): Queue containing logging messages.
         stopev (Event): Event indicating that the process should be closed.
         loglevel (logging.level, optional): Level to log at. Defaults to 
             logging.INFO.
+    
+    Log files are stored in outdir/logs.
     '''
+    outdir = outdir / 'logs'
+    outdir.mkdir(exist_ok=True)
     root = logging.getLogger()
-    h = logging.handlers.RotatingFileHandler('TadoLogger.log', 'a', 500e3, 10)
+    h = logging.handlers.RotatingFileHandler(outdir / 'PyTadoLog.log', 'a', 500e3, 10)
     f = logging.Formatter(
         '[%(asctime)s] [%(processName)-15.15s] [%(name)-10.10s] '
         '[%(levelname)-8s] [%(funcName)-12.12s] %(message)s',

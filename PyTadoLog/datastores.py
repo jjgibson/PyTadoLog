@@ -25,14 +25,14 @@ class DataStore:
     CSV files are stored in /usr/Documents/TaDoLogs.
     '''
     DATEPATTERN = re.compile(r'\d{4}-\d{2}-\d{2}')
-    OUTDIR = pathlib.Path.home() / 'Documents' / 'TaDoLogs'
 
-    def __init__(self, variables, zones, delta, lastday, logqueue):
+    def __init__(self, variables, zones, outdir, delta, lastday, logqueue):
         '''Initialise datastore. Sets up columns based on vars and zones
 
         Args:
             variables (list of dicts): List of variables to use for columns.
             zones (List of dicts): List of zones in TaDo home.
+            outdir (pathlib.Path): Directory to hold CSV files.
             delta (int): Time in seconds between rows in dataframe.
             last_day (str, optional): Three letter weekday string indicating 
                 last day of week stored in csv files. Defaults to 'sun'.
@@ -40,6 +40,7 @@ class DataStore:
         '''
         self.variables = variables
         self.zones = zones
+        self.outdir = outdir
         self.delta = delta
         self.lastday = lastday
         self.csvpath = None  # Will hold path to current csv file
@@ -47,8 +48,8 @@ class DataStore:
         self.df = None  # Will hold dataframe
         setuplogger(_LOGGER, logqueue, _LOGLEVEL)
 
-        _LOGGER.debug('Creating output directory at %s', self.OUTDIR)
-        self.OUTDIR.mkdir(exist_ok=True)
+        _LOGGER.debug('Creating output directory at %s', self.outdir)
+        self.outdir.mkdir(exist_ok=True)
         self.setupdf()
     
     def setupdf(self):
@@ -147,8 +148,8 @@ class DataStore:
         '''
         today = dt.date.today()
         viable_files = []
-        _LOGGER.debug('Searching for viable csv files in %s', self.OUTDIR)
-        for path in self.OUTDIR.glob('HomeData(*_to_*).csv'):
+        _LOGGER.debug('Searching for viable csv files in %s', self.outdir)
+        for path in self.outdir.glob('HomeData(*_to_*).csv'):
             start, end = [
                 dt.datetime.strptime(date, '%Y-%m-%d').date() 
                 for date in self.DATEPATTERN.findall(path.stem)
@@ -163,7 +164,7 @@ class DataStore:
                 getnextday(self.lastday), 
                 dt.time(23, 59, 59)
                 )
-            self.csvpath = self.OUTDIR / f'HomeData({today}_to_{self.lastindex.date()}).csv'
+            self.csvpath = self.outdir / f'HomeData({today}_to_{self.lastindex.date()}).csv'
         else:
             _LOGGER.debug('Found %s viable files', len(viable_files))
             if len(viable_files) > 1:
@@ -199,6 +200,7 @@ class MPDataStore(multiprocessing.Process, DataStore):
             self,
             variables,
             zones,
+            outdir,
             delta,
             lastday,
             logqueue,
@@ -210,6 +212,7 @@ class MPDataStore(multiprocessing.Process, DataStore):
         Args:
             variables (list of dicts): List of variables to use for columns.
             zones (List of dicts): List of zones in TaDo home.
+            outdir (pathlib.Path): Directory to hold CSV files.
             delta (int): Time in seconds between rows in dataframe.
             last_day (str, optional): Three letter weekday string indicating
                 last day of week stored in csv files. Defaults to 'sun'.
@@ -222,6 +225,7 @@ class MPDataStore(multiprocessing.Process, DataStore):
         multiprocessing.Process.__init__(self)
         self._variables = variables
         self._zones = zones
+        self._outdir = outdir
         self._delta = delta
         self._lastday = lastday
         self._logqueue = logqueue
@@ -231,7 +235,7 @@ class MPDataStore(multiprocessing.Process, DataStore):
     def run(self):
         '''Wait for data in queue and update datastore when available.
         '''
-        DataStore.__init__(self, self._variables, self._zones, self._delta, self._lastday, self._logqueue)
+        DataStore.__init__(self, self._variables, self._zones, self._outdir, self._delta, self._lastday, self._logqueue)
         while not self._stopev.is_set():
             self.update(*self._q.get())
             self._q.task_done()

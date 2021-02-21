@@ -18,7 +18,7 @@ import numpy as np
 
 from .datastores import DataStore, MPDataStore
 from .extended_interface import TadoExtended
-from .utils import loglistener, setuplogger, nexttick
+from .utils import nexttick, loglistener, setuplogger, setupoutdir
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -29,10 +29,12 @@ class TadoLogger:
     '''Periodically requests TaDo data and passes to dataframe.'''
     CREDPATH = pathlib.Path.home() / '.tado_credentials'
 
-    def __init__(self, update_period=30, last_day='sun', multiproc=True):
+    def __init__(self, outdir=None, update_period=30, last_day='sun', multiproc=True):
         '''Constructs TaDo logger to update at update_periods.
 
         Args:
+            outdir (path like, optional): Output direct to store csvs and logs.
+                Defaults to None which places files in <home>/Documents/TadoLogs/.
             update_period (int, optional): Time in seconds between update.
                 Defaults to 30.
             last_day (str, optional): Three letter weekday string indicating
@@ -43,13 +45,14 @@ class TadoLogger:
         self.update_period = update_period
         self.lastday = last_day
         self._multiproc = multiproc
+        self._outdir = setupoutdir(outdir)
         self.event = None  # Will hold next update event
         self.scheduler = sched.scheduler(time.time, time.sleep)
         self._logqueue = multiprocessing.Queue(-1)
         self._stopev = multiprocessing.Event()
         self._loglistener = multiprocessing.Process(
             target=loglistener,
-            args=(self._logqueue, self._stopev, _LOGLEVEL),
+            args=(self._outdir, self._logqueue, self._stopev, _LOGLEVEL),
             )
         self._loglistener.start()
         setuplogger(_LOGGER, self._logqueue, _LOGLEVEL)
@@ -72,6 +75,7 @@ class TadoLogger:
             self.pdstore = MPDataStore(
                 self.variables,
                 self.zones,
+                self._outdir,
                 self.update_period,
                 self.lastday,
                 self._logqueue,
@@ -82,6 +86,7 @@ class TadoLogger:
             self.pdstore = DataStore(
                 self.variables,
                 self.zones,
+                self._outdir,
                 self.update_period,
                 self.lastday,
                 self._logqueue,
