@@ -21,7 +21,7 @@ def setupoutdir(outdir=None):
     If outdir is None <home>/Documents/TadoLogs/ is used.
     '''
     if outdir is None:
-        outdir = pathlib.Path.home() / 'Documents' / 'TadLogs'
+        outdir = pathlib.Path.home() / 'Documents' / 'TadoLogs'
     else:
         outdir = pathlib.Path(outdir)
     outdir.mkdir(exist_ok=True)
