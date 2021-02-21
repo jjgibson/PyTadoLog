@@ -14,7 +14,7 @@ Note about PyTado
 This package requires python-tado to query the TADO web API, however
 development of the main package appears to have stalled. There are a
 number of forks available on PyPI with different APIs and varying
-aliases (`python-tadoac`_, `python-tado`_, `pytado`_). This package was
+aliases (`python-tadoac`_, `python-tado (PyPI)`_, `pytado`_). This package was
 developed with ``python-tado`` v0.2.9 cloned directly from GitHub, it
 has been tested to be compatible with `commit 00a9ab1`_.
 
@@ -197,7 +197,7 @@ Licence
 
 .. _python-tado: https://github.com/chrism0dwk/PyTado
 .. _python-tadoac: https://pypi.org/project/python-tadoac/
-.. _python-tado: https://pypi.org/project/python-tado/
+.. _python-tado (PyPI): https://pypi.org/project/python-tado/
 .. _pytado: https://pypi.org/project/pytado/
 .. _commit 00a9ab1: https://github.com/chrism0dwk/PyTado/tree/00a9ab12569e84a5537c2a0517c3a6b5cbb9d535
 .. _pip: https://pip.pypa.io/en/stable/
