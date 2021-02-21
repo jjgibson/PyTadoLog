@@ -1,6 +1,6 @@
 import argparse
 
-from PyTadoLog import csv2excel
+from pytadolog import csv2excel
 
 
 def main():
