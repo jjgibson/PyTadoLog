@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Content TBC
 
+## [0.1.3] - 2021-02-21
+### Fixed
+- Added Python shebang to csv2excel console script so it can be run.
+
 ## [0.1.2] - 2021-02-21
 ### Changed
 - Switched to reStructured text README so table renders on PyPI.

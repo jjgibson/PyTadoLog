@@ -9,7 +9,7 @@ with open(pathlib.Path(__file__).parent / 'README.rst', 'r', encoding='utf-8') a
     long_description = fh.read()
 
 setup(name='pytadolog',
-      version='0.1.2',
+      version='0.1.3',
       description='CSV logger for PyTado from Josh Gibson',
       long_description=long_description,
       keywords=['tado', 'python', 'logging'],
