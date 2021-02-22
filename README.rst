@@ -68,13 +68,13 @@ CSV conversion
 
 This package includes a handy script to convert created CSV files to
 Excel files. Conversion requires `openpyxl`_ to be installed. The
-script can be invoked from the commandline using:
+script can be invoked from the console using:
 
 .. code:: bash
 
    >>> csv2excel path/to/csv
 
-Again, commandline arguments can be passed to the script to customise
+Again, console arguments can be passed to the script to customise
 execution:
 
 .. code:: bash
