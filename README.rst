@@ -190,6 +190,13 @@ Contributing
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
+[Black](https://black.readthedocs.io/) is used to format all Python files.
+
+A GitHub action is set-up to automatically build and publish tagged releases
+to the [PyPI](https://pypi.org/project/pytadolog/) repository. All pushes to
+the master branch are built and published to the [TestPyPI](https://test.pypi.org/project/pytadolog/)
+repository.
+
 License
 -------
 
