@@ -215,23 +215,24 @@ class TadoLogger:
         Returns:
             tuple: Tuple containing Zone data.
 
-        Uses try/except clauses to handle server hiccups.
+        Uses try/except clauses to handle server downtime.
         '''
         try:
             climate = self.home.getClimate(zone['id'])
-        except URLError:
+        except (URLError, TypeError):
             # If the server doesn't respond continue running
+            # TypeError is raised if there is no response
             _LOGGER.warning('Could not get climate for %s', zone["name"])
             climate = {'temperature': np.nan, 'humidity': np.nan}
         try:
             state = self.home.getHeatingState(zone['id'])
-        except URLError:
+        except (URLError, TypeError):
             # If the server doesn't respond continue running
             _LOGGER.warning('Could not get heating state for %s', zone["name"])
             state = {'temperature': np.nan, 'power': np.nan}
         try:
             window = self.home.getOpenWindow(zone['id'])
-        except URLError:
+        except (URLError, TypeError):
             # If the server doesn't respond continue running
             _LOGGER.warning('Could not get window state for %s', zone["name"])
             window = np.nan
@@ -254,7 +255,7 @@ class TadoLogger:
         Returns:
             tuple: TaDo weather data.
         
-        Uses try/except clauses to handle server hiccups.
+        Uses try/except clauses to handle server downtime.
         '''
         try:
             data = self.home.getWeather()
@@ -263,8 +264,9 @@ class TadoLogger:
                 data['solarIntensity']['percentage'],
                 data['weatherState']['value'],
                 )
-        except URLError:
+        except (URLError, TypeError):
             # If the server doesn't respond continue running
+            # TypeError is raised if there is no response
             _LOGGER.debug('Could not get weather data')
             dataout = (np.nan, np.nan, np.nan)
         out = ('Weather', dataout)
