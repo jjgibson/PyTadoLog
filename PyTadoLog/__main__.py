@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''Main module for running TadoLogger from commandline.'''
 import argparse

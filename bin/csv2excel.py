@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''Console script to convert CSV to Excel file.'''
 import argparse
